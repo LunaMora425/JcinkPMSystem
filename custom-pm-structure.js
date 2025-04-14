@@ -2,6 +2,7 @@ async function initializePMListView() {
   let userVIDs = [];
   let userPMsList = [];
 
+  // TODO: will have to adjust for pagination
   let href = `https://barbermonger.me/index.php?act=Msg&CODE=01`;
   let data = '';
   try {
@@ -25,13 +26,13 @@ async function initializePMListView() {
 
   // originalPMContainer.innerHTML = `If you're seeing this, the script is running. :)`;
 
-  originalPMContainer.innerHTML = `<div id="pm-ui"><div id="pm-menu"><!-- menu here --><h1>Menu</h1><h2>Compose</h2><ul><li><a href="">Compose New Message</a></li><li><a href="">View Saved / Unsent PMs</a></li><li><a href="">View Tracked Messages</a></li></ul><h2>PM Folders</h2><ul id="pm-folders"><!-- this is where the userVID loop should go --></ul><h2>PM Settings</h2><ul><li><a href="">Manage Contacts</a></li><li><a href="">Archive Messages</a></li><li><a href="">Mass Delete Messages</a></li><li><a href="">Manage PM Folders</a></li></ul></div><div id="pm-listview"><!-- PM index here --></div></div>`;
+  originalPMContainer.innerHTML = `<div id="pm-ui"><div id="pm-menu"> <!-- menu here --> <h1>Menu</h1> <h2>Compose</h2> <ul> <li><a href="?act=Msg&CODE=04">Compose New Message</a></li> <li><a href="?act=Msg&CODE=20">View Saved / Unsent PMs</a></li> <li><a href="?act=Msg&CODE=30">View Tracked Messages</a></li> </ul> <h2>PM Folders</h2> <ul id="pm-folders"> <!-- userVID loop --> </ul> <h2>PM Settings</h2> <ul> <li><a href="?showuser=2246&CODE=friends">Manage Contacts</a></li> <li><a href="?act=Msg&CODE=14">Archive Messages</a></li> <li><a href="?act=Msg&CODE=delete">Mass Delete Messages</a></li> <li><a href="?act=Msg&CODE=07">Manage PM Folders</a></li> </ul> </div> <div id="pm-listview"> <!-- PM index here --> </div></div>`;
 
   buildPMFoldersList(userVIDs);
 }
 
 /**
- * Extract folder VIDs from the dropdown selector in the document
+ * create an array of user-created PM folders from the original table
  * @param {Document} doc - The parsed HTML document
  * @returns {Array} Array of folder objects with id and name
  */
@@ -54,10 +55,11 @@ const createVIDList = (doc) => {
 };
 
 /**
- * Extract folder VIDs from the dropdown selector in the document
+ * create an array of PM Objects from the original table
  * @param {Document} doc - The parsed HTML document
  * @returns {Array} Array of folder objects with id and name
  */
+// TODO: will need to account for if there are no PMs in the folder
 const createPMListObject = (doc) => {
   const userPMsList = [];
   const pmOriginalTableList = doc.querySelectorAll('tr.dlight');
