@@ -57,7 +57,7 @@ const createVIDList = (doc) => {
 /**
  * create an array of PM Objects from the original table
  * @param {Document} doc - The parsed HTML document
- * @returns {Array} Array of folder objects with id and name
+ * @returns {Array} Array of PM objects
  */
 // TODO: will need to account for if there are no PMs in the folder
 const createPMListObject = (doc) => {
@@ -94,7 +94,7 @@ const createPMListObject = (doc) => {
 };
 
 /**
- * Build the PM Folders with the dynamic user input
+ * Build the PM Folders with the dynamic user input and attach it to the new provided PM structure
  * @param {Array} userVIDs - Array of folder objects with id and name
  */
 const buildPMFoldersList = (userVIDs) => {
